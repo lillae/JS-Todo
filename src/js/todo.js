@@ -4,6 +4,9 @@ const toggle = document.querySelectorAll('.toggle');
 const checked = document.querySelectorAll('.checked');
 const taskText = document.querySelectorAll('.task-text');
 const todoHeader = document.querySelector('.todo-header');
+const dateBox = document.querySelector('.date');
+const task = document.querySelectorAll('.task');
+const todoContent = document.querySelector('.todo-content');
 
 let isToggled = false;
 
@@ -43,12 +46,29 @@ const getCurrentMonth = () => {
   }
 
   let output = `
-  <div class="date">
-    <h2>${day}, ${dayNr}</h2>
-    <h3>${month}</h3>
-  </div>
+  <h2>${day}, ${dayNr}</h2>
+  <h3>${month}</h3>
   `;
-  todoHeader.insertAdjacentHTML('afterbegin', output);
+  dateBox.insertAdjacentHTML('afterbegin', output);
 };
 
-getCurrentMonth();
+const taskCount = () => {
+  let arrTask = [];
+  task.forEach((t) => {
+    arrTask.push(t.dataset.value);
+  });
+  console.log(arrTask);
+
+  let output = `
+  <span>${arrTask.length} tasks pending</span>
+
+  `;
+  dateBox.insertAdjacentHTML('afterend', output);
+};
+
+const init = () => {
+  getCurrentMonth();
+  taskCount();
+};
+
+init();
