@@ -5,12 +5,87 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="./src/scss/todo.css">
     <title>Todo App</title>
 </head>
 
 <body>
 
+    <div class="todo">
+        <div class="todo-header">
+            <div class="date">
+                <h2>Monday, 4th</h2>
+                <h3>January</h3>
+            </div>
+            <span>6 tasks pending</span>
+        </div>
+        <div class="todo-content">
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=1 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=1></i>
+                    <span class="task-text" data-value=1>Send e-mail to Jack</span>
+                </label>
+                <span>7:15</span>
+            </div>
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=2 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=2></i>
+                    <span class="task-text" data-value=2>Morning run</span>
+                </label>
+                <span>7:15</span>
+            </div>
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=3 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=3></i>
+                    <span class="task-text" data-value=3>Breakfast</span>
+                </label>
+                <span>7:15</span>
+            </div>
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=4 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=4></i>
+                    <span class="task-text" data-value=4>Gym</span>
+                </label>
+                <span>7:15</span>
+            </div>
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=5 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=5></i>
+                    <span class="task-text" data-value=5>Meal with co - workers</span>
+                </label>
+                <span>7:15</span>
+            </div>
+            <div class="task">
+                <label for="toggle" class="checkbox">
+                    <input type="checkbox" class="toggle" data-value=6 />
+                    <i class="far fa-circle"></i>
+                    <i class="fas fa-check-circle checked" data-value=6></i>
+                    <span class="task-text" data-value=6>Project Overview</span>
+                </label>
+                <span>7:15</span>
+            </div>
+        </div>
+        <div class="todo-footer">
+            <button>+</button>
+        </div>
 
+    </div>
 
 
     <script src="./src/js/todo.js"></script>
