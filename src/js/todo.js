@@ -3,6 +3,8 @@
 const toggle = document.querySelectorAll('.toggle');
 const checked = document.querySelectorAll('.checked');
 const taskText = document.querySelectorAll('.task-text');
+const todoHeader = document.querySelector('.todo-header');
+
 let isToggled = false;
 
 toggle.forEach((btn) => {
@@ -23,3 +25,20 @@ toggle.forEach((btn) => {
     }
   });
 });
+
+const getCurrentMonth = () => {
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'long' });
+  const day = date.toLocaleString('default', { weekday: 'long' });
+  const dayNr = date.getDate() + `th`;
+
+  let output = `
+  <div class="date">
+    <h2>${day}, ${dayNr}</h2>
+    <h3>${month}</h3>
+  </div>
+  `;
+  todoHeader.insertAdjacentHTML('afterbegin', output);
+};
+
+getCurrentMonth();
