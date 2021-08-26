@@ -133,6 +133,12 @@ body {
 .todo .todo-content .task span {
   color: #a6aac2;
   font-size: 0.9rem;
+  margin-right: 15px;
+}
+
+.todo .todo-content .task .far.fa-trash-alt {
+  color: #a6aac2;
+  cursor: pointer;
 }
 
 .todo .todo-footer {
