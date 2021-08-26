@@ -30,7 +30,17 @@ const getCurrentMonth = () => {
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'long' });
   const day = date.toLocaleString('default', { weekday: 'long' });
-  const dayNr = date.getDate() + `th`;
+  let dayNr = date.getDate();
+
+  if (dayNr >= 4) {
+    dayNr += 'th';
+  } else if (dayNr === 1) {
+    dayNr += 'st';
+  } else if (dayNr === 2) {
+    dayNr += 'nd';
+  } else if (dayNr === 3) {
+    dayNr += 'rd';
+  }
 
   let output = `
   <div class="date">
