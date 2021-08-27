@@ -23,85 +23,47 @@
             </div>
         </div>
         <div class="todo-content">
-            <div class="task" data-value=1>
-                <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=1 />
-                    <i class="far fa-circle"></i>
-                    <i class="fas fa-check-circle checked" data-value=1></i>
-                    <span class="task-text" data-value=1>Send e-mail to Jack</span>
-
-                </label>
-                <div>
-                    <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
-                </div>
-            </div>
             <div class="task" data-value=2>
                 <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=2 />
                     <i class="far fa-circle"></i>
+
                     <i class="fas fa-check-circle checked" data-value=2></i>
+                    <input type="checkbox" class="toggle" data-value=2 />
                     <span class="task-text" data-value=2>Morning run</span>
                 </label>
                 <div>
                     <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
-                </div>
-            </div>
-            <div class="task" data-value=3>
-                <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=3 />
-                    <i class="far fa-circle"></i>
-                    <i class="fas fa-check-circle checked" data-value=3></i>
-                    <span class="task-text" data-value=3>Breakfast</span>
-                </label>
-                <div>
-                    <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
-                </div>
-            </div>
-            <div class="task" data-value=4>
-                <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=4 />
-                    <i class="far fa-circle"></i>
-                    <i class="fas fa-check-circle checked" data-value=4></i>
-                    <span class="task-text" data-value=4>Gym</span>
-                </label>
-                <div>
-                    <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
-                </div>
-            </div>
-            <div class="task" data-value=5>
-                <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=5 />
-                    <i class="far fa-circle"></i>
-                    <i class="fas fa-check-circle checked" data-value=5></i>
-                    <span class="task-text" data-value=5>Meal with co - workers</span>
-                </label>
-                <div>
-                    <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
-                </div>
-            </div>
-            <div class="task" data-value=6>
-                <label for="toggle" class="checkbox">
-                    <input type="checkbox" class="toggle" data-value=6 />
-                    <i class="far fa-circle"></i>
-                    <i class="fas fa-check-circle checked" data-value=6></i>
-                    <span class="task-text" data-value=6>Project Overview</span>
-                </label>
-                <div>
-                    <span>7:15</span>
-                    <i class="far fa-trash-alt"></i>
+                    <i class="far fa-trash-alt trash"></i>
                 </div>
             </div>
         </div>
         <div class="todo-footer">
-            <button>+</button>
+
+            <button class="add">+</button>
         </div>
 
     </div>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h2>Add Task</h2>
+                <form type=submit>
+                    <input type="text" class="modal-input" required>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <div class="start-time">
+                    <h3>Start time: <input type="time" id="appt" name="appt" min="09:00" max="18:00" required></h3>
+                </div>
+                <button type="submit" class="addTaskBtn">Add Task</button>
+            </div>
+        </div>
+    </div>
+
 
 
     <script src="./src/js/todo.js"></script>
