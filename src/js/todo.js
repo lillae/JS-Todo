@@ -93,7 +93,6 @@ function renderTodo() {
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('data-value', `${num}`);
-    checkbox.classList.add('toggle');
     label.appendChild(checkbox);
 
     const span = document.createElement('span');
@@ -123,15 +122,15 @@ function renderTodo() {
       pending.innerText = `${arrTask.length} pending task`;
     });
 
-    checkbox.addEventListener('click', (e) => {
+    checkbox.addEventListener('click', () => {
       if (checkbox.checked) {
-        e.target.previousElementSibling.style.opacity = '0';
-        e.target.nextElementSibling.style.color = '#71789c';
-        e.target.nextElementSibling.style.textDecoration = 'none';
+        circleFull.style.opacity = '0';
+        span.style.color = '#71789c';
+        span.style.textDecoration = 'none';
       } else {
-        e.target.previousElementSibling.style.opacity = '1';
-        e.target.nextElementSibling.style.color = '#a6aac2';
-        e.target.nextElementSibling.style.textDecoration = 'line-through';
+        circleFull.style.opacity = '1';
+        span.style.color = '#a6aac2';
+        span.style.textDecoration = 'line-through';
       }
     });
   }
@@ -156,16 +155,16 @@ const modalHandler = () => {
   });
 };
 
-// function saveTodos(todo) {
-//   let todos;
-//   if (localStorage.getItem('todos') === null) {
-//     todos = [];
-//   } else {
-//     todos = JSON.parse(localStorage.getItem('todos'));
-//   }
-//   todos.push(todo);
-//   localStorage.setItem('todos', JSON.stringify(todos));
-// }
+function saveTodos(todo) {
+  let todos;
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+  todos.push(todo);
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
 
 function init() {
   getCurrentMonth();
