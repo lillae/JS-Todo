@@ -1,9 +1,7 @@
 'use strict';
 
-const toggle = document.querySelectorAll('.toggle');
 const todoHeader = document.querySelector('.todo-header');
 const dateBox = document.querySelector('.date');
-const task = document.querySelectorAll('.task');
 const todoContent = document.querySelector('.todo-content');
 const modal = document.querySelector('.modal');
 const addBtn = document.querySelector('.add');
@@ -11,34 +9,15 @@ const closeBtn = document.querySelector('.close');
 const addTaskBtn = document.querySelector('.addTaskBtn');
 const modalInput = document.querySelector('.modal-input');
 const timeInput = document.getElementById('appt');
-const deleteBtn = document.querySelectorAll('.trash');
+const pending = document.querySelector('.pending');
+
 let arrTask = [];
 let num = 0;
 let result;
 let time;
 let todo;
 
-//* Event listeners */
-
 addTaskBtn.addEventListener('click', renderTodo);
-
-deleteBtn.forEach(() => {
-  todoContent.addEventListener('click', (e) => {
-    if (e.target.classList.contains('trash')) {
-      e.target.parentElement.parentElement.remove();
-    }
-  });
-});
-
-toggle.forEach(() => {
-  todoContent.addEventListener('click', (e) => {
-    if (e.target.classList.contains('toggle')) {
-      e.target.previousElementSibling.style.opacity = '1';
-      e.target.nextElementSibling.style.color = '#a6aac2';
-      e.target.nextElementSibling.style.textDecoration = 'line-through';
-    }
-  });
-});
 
 //*Functions */
 
@@ -75,12 +54,16 @@ const getCurrentMonth = () => {
   dateBox.insertAdjacentHTML('afterbegin', output);
 };
 
+function taskCounter() {
+  pending.innerText = `${arrTask.length} pending tasks`;
+}
+
 function renderTodo() {
   result = updateInput();
   time = updateTaskTime();
   todo = { result, time, num };
   arrTask.push(todo);
-  console.log(arrTask);
+  taskCounter();
   num += 1;
 
   //*Outputting Task
@@ -131,6 +114,26 @@ function renderTodo() {
     trash.classList.add('fa-trash-alt');
     trash.classList.add('trash');
     timeDiv.appendChild(trash);
+    modal.style.display = 'none';
+
+    trash.addEventListener('click', (e) => {
+      e.target.parentElement.parentElement.remove();
+      let index = arrTask.indexOf(this);
+      arrTask.splice(index, 1);
+      pending.innerText = `${arrTask.length} pending task`;
+    });
+
+    checkbox.addEventListener('click', (e) => {
+      if (checkbox.checked) {
+        e.target.previousElementSibling.style.opacity = '0';
+        e.target.nextElementSibling.style.color = '#71789c';
+        e.target.nextElementSibling.style.textDecoration = 'none';
+      } else {
+        e.target.previousElementSibling.style.opacity = '1';
+        e.target.nextElementSibling.style.color = '#a6aac2';
+        e.target.nextElementSibling.style.textDecoration = 'line-through';
+      }
+    });
   }
 
   modalInput.value = '';
@@ -153,13 +156,6 @@ const modalHandler = () => {
   });
 };
 
-function init() {
-  getCurrentMonth();
-  modalHandler();
-}
-
-init();
-
 // function saveTodos(todo) {
 //   let todos;
 //   if (localStorage.getItem('todos') === null) {
@@ -171,14 +167,9 @@ init();
 //   localStorage.setItem('todos', JSON.stringify(todos));
 // }
 
-// const taskCount = (todo) => {
-//   todo.forEach((t) => {
-//     arrTask.push(t);
-//   });
+function init() {
+  getCurrentMonth();
+  modalHandler();
+}
 
-//   let output = `
-//   <span>${arrTask.length} task pending</span>
-//   `;
-
-//   dateBox.insertAdjacentHTML('afterend', output);
-// };
+init();
