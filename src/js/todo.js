@@ -131,7 +131,6 @@ function renderTodo() {
     trash.classList.add('fa-trash-alt');
     trash.classList.add('trash');
     timeDiv.appendChild(trash);
-    modal.style.display = 'none';
   }
 
   modalInput.value = '';
