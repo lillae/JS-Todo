@@ -3,8 +3,62 @@ $pink: rgb(233, 30, 99);
 $blueGrey: #71789c;
 $lightGrey: #9ca1ba;
 $header: #e9eaf4;
+$border: rgb(247, 247, 250);
+$task: white;
+$shadow: #f9c5d7;
 $tablet: 768px;
 $desktop: 1199px;
+
+//*For DarkMode
+$darkblue: #11121d;
+$darkHeader: #25283a;
+$pink2: deeppink;
+$darkBorder: #25283a;
+$darkShadow: #411422;
+$purple1: #271b32;
+$purple2: rebeccapurple;
+
+:root {
+  --bg: #{$blue};
+  --header: #{$header};
+  --border: #{$border};
+  --taskbody: #{$task};
+  --shadow: #{$shadow};
+  --modal: #{$task};
+  --btn: #{$pink};
+  --btnBorder: transparent;
+  --hoverBorder: #{$pink};
+  --hoverColor: #{$pink};
+  --ft: #{$blue};
+  --focus: #{$lightGrey};
+  --taskFt: #{$blueGrey};
+  --taskFt2: #{$blueGrey};
+  --modalInput: #{$blueGrey};
+  --plus: #{$pink};
+  --btnColor: white;
+  --pink: #{$pink};
+}
+
+.dark {
+  --bg: #{$darkblue};
+  --header: #{$darkHeader};
+  --border: #{$darkBorder};
+  --taskbody: #{$darkblue};
+  --shadow: #{$darkShadow};
+  --modal: #{$darkblue};
+  --plus: deeppink;
+  --ft: white;
+  --focus: rebeccapurple;
+  --taskFt: transparent;
+  --taskFt2: white;
+  --modalInput: white;
+  --btn: transparent;
+  --btnBorder: deeppink;
+  --hoverBorder: #ff3fa7;
+  --hoverColor: #ff3fa7;
+  --btnColor: deeppink;
+  --pink: deeppink;
+}
 
 @mixin mobile {
   @media (max-width: #{$tablet}) {
@@ -26,12 +80,28 @@ $desktop: 1199px;
 
 body {
   min-height: 100vh;
-  background: $blue;
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  transition: all 0.5s ease-in-out;
+}
+
+#dark-toggle {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  transform: rotate(230deg);
+  &:hover {
+    color: rgb(255, 255, 129);
+    transition: color 0.7 ease;
+  }
 }
 
 .todo {
@@ -39,13 +109,12 @@ body {
   max-width: 375px;
   width: 100%;
   height: 100%;
-  background: white;
   border-radius: 0.4rem;
-  border: 1px solid rgb(247, 247, 250);
+  border: 1px solid var(--border);
   .todo-header {
     height: 87px;
     width: 100%;
-    background: $header;
+    background: var(--header);
     border-top-left-radius: 0.4rem;
     border-top-right-radius: 0.4rem;
     padding: 0px 24px 0px 32px;
@@ -54,7 +123,7 @@ body {
     align-items: center;
     h2 {
       font-size: 1.35rem;
-      color: $blue;
+      color: var(--ft);
     }
     h3 {
       color: #a4aaca;
@@ -69,11 +138,12 @@ body {
   .todo-content {
     .task {
       height: 4.4rem;
-      border: 1px solid rgba(233, 234, 244, 0.5);
+      border: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0px 24px 0px 32px;
+      background: var(--taskbody);
       .checkbox {
         display: flex;
         align-items: center;
@@ -99,7 +169,7 @@ body {
         }
         i.fas.fa-check-circle {
           opacity: 0;
-          color: $pink;
+          color: var(--pink);
         }
 
         span {
@@ -117,7 +187,7 @@ body {
         color: #a6aac2;
         cursor: pointer;
         &:hover {
-          color: $pink;
+          color: var(--pink);
         }
       }
     }
@@ -126,10 +196,11 @@ body {
   .todo-footer {
     height: 6.125rem;
     position: relative;
+    background: var(--taskbody);
     button {
-      background: $pink;
+      background: var(--plus);
       color: white;
-      box-shadow: 0px 10px 14px #f9c5d7;
+      box-shadow: 0px 10px 14px var(--shadow);
       border: 1px solid transparent;
       width: 63px;
       height: 63px;
@@ -164,19 +235,24 @@ body {
     padding-bottom: 2rem;
   }
   .modal-content {
-    background-color: #fefefe;
+    background: var(--modal);
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var(--focus);
     max-width: 650px;
     width: 100%;
     border-radius: 10px;
     h2,
     h3 {
-      color: $blueGrey;
+      color: var(--taskFt2);
       padding-bottom: 1rem;
+      font-weight: 300;
+    }
+    h2 {
+      font-size: 2rem;
     }
     h3 {
+      font-size: 1.5rem;
       margin-right: 15px;
     }
   }
@@ -185,27 +261,29 @@ body {
     input {
       width: 300px;
       height: 50px;
-      border: 1px solid lightgray;
+      border: 1px solid var(--focus);
       font-size: 1.1rem;
-      color: $blueGrey;
+      color: var(--modalInput);
       padding-left: 10px;
+      background: transparent;
       &:focus {
         outline: none;
-        border: 1px solid $lightGrey;
+        border: 1px solid var(--focus);
       }
     }
   }
   .modal-footer {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     .start-time {
       display: flex;
       align-items: center;
     }
     input {
       padding: 0.5rem;
-      border: 1px solid $blueGrey;
-      background: $blueGrey;
+      border: 1px solid var(--focus);
+      background: var(--taskFt);
       font-family: 'Roboto', sans-serif;
       font-size: 1.1rem;
       font-weight: bold;
@@ -224,20 +302,24 @@ body {
     }
 
     .addTaskBtn {
-      background: $pink;
-      color: white;
+      background: var(--btn);
+      color: var(--btnColor);
       outline: none;
-      border: 2px solid transparent;
+      width: 30%;
+      align-self: flex-end;
+      border: 2px solid var(--btnBorder);
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1.1rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 1rem;
       font-family: 'Roboto', sans-serif;
-      border-radius: 25px;
-      padding: 1rem 2rem;
+      border-radius: 5px;
+      padding: 0rem 2.5rem;
+      height: 55px;
       &:hover {
-        border: 2px solid $pink;
+        border: 2px solid var(--hoverBorder);
         background: transparent;
-        color: $pink;
+        color: var(--hoverColor);
         transition: all 0.7s ease;
       }
     }
@@ -252,7 +334,7 @@ body {
 
   .close:hover,
   .close:focus {
-    color: $pink;
+    color: var(--pink);
     text-decoration: none;
     cursor: pointer;
   }
@@ -260,11 +342,13 @@ body {
 
 //* Media Queries
 @include mobile {
-  .modal-footer {
-    flex-direction: column;
-    .addTaskBtn {
-      width: 70%;
-      margin: 1rem auto 0px;
+  .modal {
+    .modal-footer {
+      flex-direction: column;
+      .addTaskBtn {
+        width: 70%;
+        margin: 10px auto;
+      }
     }
   }
 }
