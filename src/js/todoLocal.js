@@ -10,6 +10,7 @@ const addTaskBtn = document.querySelector('.addTaskBtn');
 const modalInput = document.querySelector('.modal-input');
 const timeInput = document.getElementById('appt');
 const pending = document.querySelector('.pending');
+const storedInput = localStorage.getItem('todos');
 
 let arrTask = [];
 
@@ -19,9 +20,14 @@ let time;
 let todo;
 
 addTaskBtn.addEventListener('click', renderTodo);
+addTaskBtn.addEventListener('click', addTodo);
 document.addEventListener('DOMContentLoaded', getTodos);
 
 //*Functions */
+
+function makeId() {
+  return Math.random().toString(36).substr(2, 9);
+}
 
 function updateInput() {
   let addedTask = modalInput.value;
@@ -60,25 +66,44 @@ function taskCounter() {
   pending.innerText = `${arrTask.length} pending tasks`;
 }
 
-function deleteTodo(e) {
-  const item = e.target;
+function addTodo(item) {
+  if (item !== '') {
+    const todo = {
+      id: Date.now(),
+      name: item,
+      completed: false,
+    };
+
+    todos.push(todo);
+    addToLocalStorage(todos);
+    todoInput.value = '';
+  }
+}
+
+function addToLocalStorage(todos) {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  renderTodo(todos);
 }
 
 function renderTodo() {
   result = updateInput();
   time = updateTaskTime();
-  const todo = { result, time, num };
+  let id = makeId();
+  todo = { result, time, id };
   arrTask.push(todo);
-  console.log(arrTask);
+  console.log(todo);
   taskCounter();
   num += 1;
   saveTodos(todo);
 
+  //*Outputting Task
   if (modalInput.value !== '' && timeInput.value !== '') {
     const task = document.createElement('div');
     task.classList.add('task');
     task.setAttribute('data-value', `${num}`);
+    task.setAttribute('id', `${id}`);
     todoContent.appendChild(task);
+    console.log(task);
 
     const label = document.createElement('label');
     label.classList.add('checkbox');
@@ -119,10 +144,16 @@ function renderTodo() {
     trash.classList.add('far');
     trash.classList.add('fa-trash-alt');
     trash.classList.add('trash');
+    trash.setAttribute('id', `${id}`);
     timeDiv.appendChild(trash);
 
     trash.addEventListener('click', (e) => {
+      console.log(e.target.parentElement.parentElement);
       e.target.parentElement.parentElement.remove();
+      let index = arrTask.indexOf(this);
+      arrTask.splice(index, 1);
+      pending.innerText = `${arrTask.length} pending task`;
+      removeTodo(task);
     });
 
     checkbox.addEventListener('click', () => {
@@ -141,15 +172,13 @@ function renderTodo() {
   modalInput.value = '';
 }
 
-//* Functions for LocalStorage */
-
 function saveTodos(todo) {
   let todos;
 
-  if (localStorage.getItem('todos') === null) {
+  if (storedInput === null) {
     todos = [];
   } else {
-    todos = JSON.parse(localStorage.getItem('todos'));
+    todos = JSON.parse(storedInput);
   }
   todos.push(todo);
   localStorage.setItem('todos', JSON.stringify(todos));
@@ -158,16 +187,17 @@ function saveTodos(todo) {
 function getTodos() {
   let todos;
 
-  if (localStorage.getItem('todos') === null) {
+  if (storedInput === null) {
     todos = [];
   } else {
-    todos = JSON.parse(localStorage.getItem('todos'));
+    todos = JSON.parse(storedInput);
   }
 
   todos.forEach((todo) => {
     const task = document.createElement('div');
     task.classList.add('task');
-    task.setAttribute('data-value', `${num}`);
+    task.setAttribute('data-value', todo.num);
+    task.setAttribute('id', todo.id);
     todoContent.appendChild(task);
 
     const label = document.createElement('label');
@@ -213,11 +243,10 @@ function getTodos() {
     modal.style.display = 'none';
 
     trash.addEventListener('click', (e) => {
+      console.log(e.target.id);
       const taskItem = e.target.parentElement.parentElement;
       taskItem.remove();
-      let index = arrTask.indexOf(this);
-      arrTask.splice(index, 1);
-      removeLocalTodo(taskItem);
+      removeTodo(e.target.parentElement.parentElement.getAttribute('id'));
       pending.innerText = `${arrTask.length} pending task`;
     });
 
@@ -235,40 +264,6 @@ function getTodos() {
   });
 }
 
-function removeLocalTodo(todo) {
-  let todos;
-  if (localStorage.getItem('todos') === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem('todos'));
-  }
-
-  const todoIndex = todo.children[0].children[3];
-  todos.splice(todos.indexOf(todoIndex), 1);
-  localStorage.setItem('todos', JSON.stringify(todos));
-}
-
-// function displayTodos() {
-//   const todoStorage = JSON.parse(localStorage.getItem('TODO-app')) || [];
-
-//   todoStorage.forEach((todo) => {
-//     const userItem = `
-//     <div class="task">
-//       <label for="" class="checkbox">
-//         <input type="checkbox" class="toggle">
-//         <i class="far fa-circle"></i>
-//         <i class="fas fa-check-circle checked"></i>
-//         <span class="task-text">${todo.result}</span>
-//       </label>
-//       <div>
-//         <span>${todo.time}</span>
-//         <i class="far fa-trash-alt"></i>
-//       </div>
-//     </div>`;
-//     todoContent.insertAdjacentHTML('beforeend', userItem);
-//   });
-// }
-
 const modalHandler = () => {
   addBtn.addEventListener('click', () => {
     modal.style.display = 'block';
@@ -284,6 +279,22 @@ const modalHandler = () => {
     }
   });
 };
+
+function removeTodo(id) {
+  let todos;
+
+  if (storedInput === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(storedInput);
+  }
+
+  todos = todos.filter(function (todo) {
+    return todo.id != id;
+  });
+
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
 
 function init() {
   getCurrentMonth();
