@@ -159,7 +159,7 @@ body {
         i.fas.fa-check-circle {
           position: absolute;
           left: -3px;
-          top: 0px;
+          top: 0;
           font-size: 1.3rem;
           cursor: pointer;
           pointer-events: none;
@@ -170,12 +170,21 @@ body {
         i.fas.fa-check-circle {
           opacity: 0;
           color: var(--pink);
+
+          &.done {
+            opacity: 1;
+          }
         }
 
         span {
           color: #71789c;
           font-size: 1rem;
           margin-left: 25px;
+
+          &.done {
+            text-decoration: line-through;
+            color: #a6aac2
+          }
         }
       }
       span {
@@ -230,6 +239,10 @@ body {
   min-height: 100vh;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+
+  &.show {
+    display: block;
+  }
 
   .modal-header {
     padding-bottom: 2rem;
