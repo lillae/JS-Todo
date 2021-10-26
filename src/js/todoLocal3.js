@@ -5,13 +5,9 @@ const addBtn = document.querySelector('.add');
 const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.close');
 const addTaskBtn = document.querySelector('.addTaskBtn');
-const todoHeader = document.querySelector('.todo-header');
-
-const timeInput = document.getElementById('appt');
+const timeInput = document.querySelector('#appt');
 let pending = document.querySelector('.pending');
 let modalInput = document.querySelector('.modal-input');
-let time;
-let circle;
 let todos = [];
 
 //* EVENT LISTENERS */
@@ -20,8 +16,7 @@ addTaskBtn.addEventListener('click', addTodo);
 
 //* FUNCTIONS */
 function updateTaskTime() {
-  let addedTime = timeInput.value;
-  return addedTime;
+  return timeInput.value;
 }
 
 function makeId() {
@@ -73,6 +68,7 @@ function renderTodo() {
   let html = '';
   const todoContent = document.querySelector('.todo-content');
 
+  let circle;
   todos.forEach((item, index) => {
     if (item.completed === true) {
       circle = `<i class="fas fa-check-circle circleFull checked"></i>`;
@@ -84,7 +80,9 @@ function renderTodo() {
     <div class="task" id=${item.id}>
     <label class="checkbox" for="toggle">
         ${circle} 
-        <input type="checkbox" id=${item.id}>
+        <input type="checkbox" id=${
+          item.id
+        } onchange="checkboxHandler(${index})">
         <span class='${item.completed ? 'completed' : 'task-text'}'task-text">${
       item.todo
     }</span>
@@ -97,15 +95,21 @@ function renderTodo() {
     </div>
 </div>
 `;
-
-    if (todos !== null) {
-      pending.innerText = `${todos.length} pending tasks`;
-    } else {
-      pending.innerText = '';
-    }
-
-    todoContent.innerHTML = html;
   });
+
+  if (todos !== null) {
+    if (todos.length >= 1) {
+      pending.innerText = `${todos.length} pending task`;
+    } else {
+      pending.innerText = 'No pending task';
+    }
+  }
+
+  todoContent.innerHTML = html;
+}
+
+function checkboxHandler(item) {
+  console.log(item);
 }
 
 const getCurrentMonth = () => {
