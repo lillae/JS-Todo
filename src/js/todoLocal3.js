@@ -36,7 +36,7 @@ function addTodo() {
       id: makeId(),
     });
 
-    localStorage.setItem('Todos', JSON.stringify(todos));
+    setStorage();
     modalInput.value = '';
   }
   renderTodo();
@@ -45,7 +45,7 @@ function addTodo() {
 function deleteTodo(index) {
   getStorage();
   todos.splice(index, 1);
-  localStorage.setItem('Todos', JSON.stringify(todos));
+  setStorage();
   renderTodo();
 }
 
@@ -97,12 +97,16 @@ function renderTodo() {
 
 function checkboxHandler(item) {
   getStorage();
-  item.checked ? (todos.completed = true) : (todos.completed = false);
+  return item.checked ? (todos.completed = true) : (todos.completed = false);
 }
 
 function getStorage() {
   let todo = localStorage.getItem('Todos');
   todo === null ? (todos = []) : (todos = JSON.parse(todo));
+}
+
+function setStorage() {
+  localStorage.setItem('Todos', JSON.stringify(todos));
 }
 
 const getCurrentMonth = () => {
