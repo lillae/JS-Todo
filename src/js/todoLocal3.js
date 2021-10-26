@@ -27,13 +27,7 @@ function addTodo() {
   const modalInputValue = modalInput.value;
 
   if (modalInput.value !== '' && timeInput.value !== '') {
-    let todo = localStorage.getItem('Todos');
-
-    if (todo === null) {
-      todos = [];
-    } else {
-      todos = JSON.parse(todo);
-    }
+    getStorage();
 
     todos.push({
       todo: modalInputValue,
@@ -49,7 +43,7 @@ function addTodo() {
 }
 
 function deleteTodo(index) {
-  let todo = localStorage.getItem('Todos');
+  getStorage();
   let todos = JSON.parse(todo);
   todos.splice(index, 1);
   localStorage.setItem('Todos', JSON.stringify(todos));
@@ -57,13 +51,7 @@ function deleteTodo(index) {
 }
 
 function renderTodo() {
-  let todo = localStorage.getItem('Todos');
-
-  if (todo === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(todo);
-  }
+  getStorage();
 
   let html = '';
   const todoContent = document.querySelector('.todo-content');
@@ -82,7 +70,7 @@ function renderTodo() {
         ${circle} 
         <input type="checkbox" id=${
           item.id
-        } onchange="checkboxHandler(${index})">
+        } onClick="checkboxHandler(${index})">
         <span class='${item.completed ? 'completed' : 'task-text'}'task-text">${
       item.todo
     }</span>
@@ -109,7 +97,13 @@ function renderTodo() {
 }
 
 function checkboxHandler(item) {
-  console.log(item);
+  getStorage();
+  item.checked ? (todos.completed = true) : (todos.completed = false);
+}
+
+function getStorage() {
+  let todo = localStorage.getItem('Todos');
+  todo === null ? (todos = []) : (todos = JSON.parse(todo));
 }
 
 const getCurrentMonth = () => {
@@ -118,14 +112,18 @@ const getCurrentMonth = () => {
   const day = date.toLocaleString('default', { weekday: 'long' });
   let dayNr = date.getDate();
 
-  if (dayNr >= 4) {
-    dayNr += 'th';
-  } else if (dayNr === 1) {
-    dayNr += 'st';
-  } else if (dayNr === 2) {
-    dayNr += 'nd';
-  } else if (dayNr === 3) {
-    dayNr += 'rd';
+  switch (dayNr) {
+    case dayNr === 1:
+      dayNr += 'st';
+      break;
+    case dayNr === 2:
+      dayNr += 'nd';
+      break;
+    case dayNr === 3:
+      dayNr += 'rd';
+      break;
+    default:
+      dayNr += 'th';
   }
 
   let output = `
