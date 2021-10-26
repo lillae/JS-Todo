@@ -44,7 +44,6 @@ function addTodo() {
 
 function deleteTodo(index) {
   getStorage();
-  let todos = JSON.parse(todo);
   todos.splice(index, 1);
   localStorage.setItem('Todos', JSON.stringify(todos));
   renderTodo();
