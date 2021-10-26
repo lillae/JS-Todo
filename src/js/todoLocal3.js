@@ -97,12 +97,14 @@ function renderTodo() {
 
 function checkboxHandler(item) {
   getStorage();
-  return item.checked ? (todos.completed = true) : (todos.completed = false);
+  item.checked ? (todos.completed = true) : (todos.completed = false);
+  setStorage();
+  renderTodo();
 }
 
 function getStorage() {
   let todo = localStorage.getItem('Todos');
-  todo === null ? (todos = []) : (todos = JSON.parse(todo));
+  return todo === null ? (todos = []) : (todos = JSON.parse(todo));
 }
 
 function setStorage() {
