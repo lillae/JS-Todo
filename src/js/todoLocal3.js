@@ -77,7 +77,7 @@ function renderTodo() {
           item.completed ? ' done' : ''
         }"></i>
         <input type="checkbox" id=${index}">
-        <span class="task-text ${item.completed ? ' done' : ''}">${
+        <span class="task-text ${item.completed ? 'completed' : ''}">${
       item.todo
     }</span>
     </label>

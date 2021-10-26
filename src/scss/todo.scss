@@ -43,7 +43,7 @@ $purple2: rebeccapurple;
   --bg: #{$darkblue};
   --header: #{$darkHeader};
   --border: #{$darkBorder};
-  --taskbody: #{$darkblue};
+  --taskbody: #141622;
   --shadow: #{$darkShadow};
   --modal: #{$darkblue};
   --plus: deeppink;
@@ -110,7 +110,6 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 0.4rem;
-  border: 1px solid var(--border);
   .todo-header {
     height: 87px;
     width: 100%;
@@ -170,20 +169,18 @@ body {
         i.fas.fa-check-circle {
           opacity: 0;
           color: var(--pink);
+        }
 
-          &.done {
-            opacity: 1;
-          }
+        .done {
+          opacity: 1;
         }
 
         span {
           color: #71789c;
           font-size: 1rem;
           margin-left: 25px;
-
-          &.done {
+          .completed {
             text-decoration: line-through;
-            color: #a6aac2
           }
         }
       }
@@ -206,6 +203,7 @@ body {
     height: 6.125rem;
     position: relative;
     background: var(--taskbody);
+    border: 1px solid var(--border);
     button {
       background: var(--plus);
       color: white;
