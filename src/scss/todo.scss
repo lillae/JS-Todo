@@ -167,21 +167,19 @@ body {
           color: #e9eaf480;
         }
         i.fas.fa-check-circle {
-          opacity: 0;
           color: var(--pink);
         }
 
-        .done {
-          opacity: 1;
-        }
-
-        span {
+        .task-text {
           color: #71789c;
           font-size: 1rem;
           margin-left: 25px;
-          .completed {
-            text-decoration: line-through;
-          }
+        }
+        .completed {
+          color: #71789c;
+          font-size: 1rem;
+          margin-left: 25px;
+          text-decoration: line-through;
         }
       }
       span {

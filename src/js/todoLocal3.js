@@ -6,11 +6,12 @@ const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.close');
 const addTaskBtn = document.querySelector('.addTaskBtn');
 const todoHeader = document.querySelector('.todo-header');
-const todoContent = document.querySelector('.todo-content');
+
 const timeInput = document.getElementById('appt');
 let pending = document.querySelector('.pending');
 let modalInput = document.querySelector('.modal-input');
 let time;
+let circle;
 let todos = [];
 
 //* EVENT LISTENERS */
@@ -23,10 +24,14 @@ function updateTaskTime() {
   return addedTime;
 }
 
+function makeId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 function addTodo() {
   const modalInputValue = modalInput.value;
 
-  if (modalInputValue.trim() !== 0) {
+  if (modalInput.value !== '' && timeInput.value !== '') {
     let todo = localStorage.getItem('Todos');
 
     if (todo === null) {
@@ -39,9 +44,9 @@ function addTodo() {
       todo: modalInputValue,
       completed: false,
       time: updateTaskTime(),
+      id: makeId(),
     });
 
-    console.log(todos);
     localStorage.setItem('Todos', JSON.stringify(todos));
     modalInput.value = '';
   }
@@ -66,30 +71,37 @@ function renderTodo() {
   }
 
   let html = '';
-  let todoContent = document.querySelector('.todo-content');
+  const todoContent = document.querySelector('.todo-content');
 
   todos.forEach((item, index) => {
+    if (item.completed === true) {
+      circle = `<i class="fas fa-check-circle circleFull checked"></i>`;
+    } else {
+      circle = `<i class="far fa-circle circle" ></i>`;
+    }
+
     html += `
-    <div class="task" id=${index}>
+    <div class="task" id=${item.id}>
     <label class="checkbox" for="toggle">
-        <i class="far fa-circle circle" ></i>
-        <i class="fas fa-check-circle circleFull checked${
-          item.completed ? ' done' : ''
-        }"></i>
-        <input type="checkbox" id=${index}">
-        <span class="task-text ${item.completed ? 'completed' : ''}">${
+        ${circle} 
+        <input type="checkbox" id=${item.id}>
+        <span class='${item.completed ? 'completed' : 'task-text'}'task-text">${
       item.todo
     }</span>
     </label>
     <div>
         <span>${item.time}</span>
-        <i class="far fa-trash-alt trash" onClick='deleteTodo(${index})'></i>
+        <i class="far fa-trash-alt trash" id=${
+          item.id
+        } onClick='deleteTodo(${index})'></i>
     </div>
 </div>
 `;
 
     if (todos !== null) {
       pending.innerText = `${todos.length} pending tasks`;
+    } else {
+      pending.innerText = '';
     }
 
     todoContent.innerHTML = html;
@@ -136,7 +148,7 @@ const modalHandler = () => {
 };
 
 function init() {
+  renderTodo();
   getCurrentMonth();
   modalHandler();
-  renderTodo();
 }
