@@ -1,0 +1,27 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "JavaScript Todo app",
+  "main": "index.js",
+  "dependencies": {
+    "sass": "^1.38.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass ./src/scss/todo.scss:./public/css/todo.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lillae/Todo.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Lilla Varga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lillae/Todo/issues"
+  },
+  "homepage": "https://github.com/lillae/Todo#readme"
+}
