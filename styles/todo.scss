@@ -1,0 +1,365 @@
+$blue: #3f51b5;
+$pink: rgb(233, 30, 99);
+$blueGrey: #71789c;
+$lightGrey: #9ca1ba;
+$header: #e9eaf4;
+$border: rgb(247, 247, 250);
+$task: white;
+$shadow: #f9c5d7;
+$tablet: 768px;
+$desktop: 1199px;
+
+//*For DarkMode
+$darkblue: #11121d;
+$darkHeader: #25283a;
+$pink2: deeppink;
+$darkBorder: #25283a;
+$darkShadow: #411422;
+$purple1: #271b32;
+$purple2: rebeccapurple;
+
+:root {
+  --bg: #{$blue};
+  --header: #{$header};
+  --border: #{$border};
+  --taskbody: #{$task};
+  --shadow: #{$shadow};
+  --modal: #{$task};
+  --btn: #{$pink};
+  --btnBorder: transparent;
+  --hoverBorder: #{$pink};
+  --hoverColor: #{$pink};
+  --ft: #{$blue};
+  --focus: #{$lightGrey};
+  --taskFt: #{$blueGrey};
+  --taskFt2: #{$blueGrey};
+  --modalInput: #{$blueGrey};
+  --plus: #{$pink};
+  --btnColor: white;
+  --pink: #{$pink};
+}
+
+.dark {
+  --bg: #{$darkblue};
+  --header: #{$darkHeader};
+  --border: #{$darkBorder};
+  --taskbody: #141622;
+  --shadow: #{$darkShadow};
+  --modal: #{$darkblue};
+  --plus: deeppink;
+  --ft: white;
+  --focus: rebeccapurple;
+  --taskFt: transparent;
+  --taskFt2: white;
+  --modalInput: white;
+  --btn: transparent;
+  --btnBorder: deeppink;
+  --hoverBorder: #ff3fa7;
+  --hoverColor: #ff3fa7;
+  --btnColor: deeppink;
+  --pink: deeppink;
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  transition: all 0.5s ease-in-out;
+}
+
+#dark-toggle {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  transform: rotate(230deg);
+  &:hover {
+    color: rgb(255, 255, 129);
+    transition: color 0.7 ease;
+  }
+}
+
+.todo {
+  margin: 95px 0px;
+  max-width: 375px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.4rem;
+  .todo-header {
+    height: 87px;
+    width: 100%;
+    background: var(--header);
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    padding: 0px 24px 0px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      font-size: 1.35rem;
+      color: var(--ft);
+    }
+    h3 {
+      color: #a4aaca;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    span {
+      color: #a4aaca;
+      font-size: 0.9rem;
+    }
+  }
+  .todo-content {
+    .task {
+      height: 4.4rem;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 24px 0px 32px;
+      background: var(--taskbody);
+      .checkbox {
+        display: flex;
+        align-items: center;
+        position: relative;
+        input[type='checkbox'] {
+          cursor: pointer;
+          position: relative;
+          opacity: 0;
+          width: 20px;
+          height: 20px;
+        }
+        i.far.fa-circle,
+        i.fas.fa-check-circle {
+          position: absolute;
+          left: -3px;
+          top: 0;
+          font-size: 1.3rem;
+          cursor: pointer;
+          pointer-events: none;
+        }
+        i.far.fa-circle {
+          color: #e9eaf480;
+        }
+        i.fas.fa-check-circle {
+          opacity: 0;
+          color: var(--pink);
+        }
+
+        .done {
+          opacity: 1;
+        }
+
+        span {
+          color: #71789c;
+          font-size: 1rem;
+          margin-left: 25px;
+          .completed {
+            text-decoration: line-through;
+          }
+        }
+      }
+      span {
+        color: #a6aac2;
+        font-size: 0.9rem;
+        margin-right: 15px;
+      }
+      .far.fa-trash-alt {
+        color: #a6aac2;
+        cursor: pointer;
+        &:hover {
+          color: var(--pink);
+        }
+      }
+    }
+  }
+
+  .todo-footer {
+    height: 6.125rem;
+    position: relative;
+    background: var(--taskbody);
+    border: 1px solid var(--border);
+    button {
+      background: var(--plus);
+      color: white;
+      box-shadow: 0px 10px 14px var(--shadow);
+      border: 1px solid transparent;
+      width: 63px;
+      height: 63px;
+      border-radius: 50%;
+      font-size: 2rem;
+      position: absolute;
+      right: 22px;
+      top: 20px;
+      cursor: pointer;
+      transform: scale(1);
+      transition: all 0.5s ease;
+      &:hover {
+        transform: scale(1.05);
+        transition: transform 0.5s ease;
+      }
+    }
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &.show {
+    display: block;
+  }
+
+  .modal-header {
+    padding-bottom: 2rem;
+  }
+  .modal-content {
+    background: var(--modal);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--focus);
+    max-width: 650px;
+    width: 100%;
+    border-radius: 10px;
+    h2,
+    h3 {
+      color: var(--taskFt2);
+      padding-bottom: 1rem;
+      font-weight: 300;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+      margin-right: 15px;
+    }
+  }
+  .modal-body {
+    padding-bottom: 2rem;
+    input {
+      width: 300px;
+      height: 50px;
+      border: 1px solid var(--focus);
+      font-size: 1.1rem;
+      color: var(--modalInput);
+      padding-left: 10px;
+      background: transparent;
+      &:focus {
+        outline: none;
+        border: 1px solid var(--focus);
+      }
+    }
+  }
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    .start-time {
+      display: flex;
+      align-items: center;
+    }
+    input {
+      padding: 0.5rem;
+      border: 1px solid var(--focus);
+      background: var(--taskFt);
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      color: white;
+      margin-left: 15px;
+      &:focus {
+        outline: none;
+      }
+    }
+    input[type='time']::-webkit-calendar-picker-indicator {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      filter: invert(1);
+    }
+
+    .addTaskBtn {
+      background: var(--btn);
+      color: var(--btnColor);
+      outline: none;
+      width: 30%;
+      align-self: flex-end;
+      border: 2px solid var(--btnBorder);
+      cursor: pointer;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 5px;
+      padding: 0rem 2.5rem;
+      height: 55px;
+      &:hover {
+        border: 2px solid var(--hoverBorder);
+        background: transparent;
+        color: var(--hoverColor);
+        transition: all 0.7s ease;
+      }
+    }
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: var(--pink);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+//* Media Queries
+@include mobile {
+  .modal {
+    .modal-footer {
+      flex-direction: column;
+      .addTaskBtn {
+        width: 70%;
+        margin: 10px auto;
+      }
+    }
+  }
+}
