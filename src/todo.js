@@ -107,14 +107,6 @@ todoContent.addEventListener('click', (e) => {
   renderTodo();
 });
 
-function checkboxHandler(item) {
-  getStorage();
-
-  item.checked ? todos[item].completed : (todos[item].completed = false);
-  setStorage();
-  renderTodo();
-}
-
 function getStorage() {
   let todo = localStorage.getItem('Todos');
   return todo === null ? (todos = []) : (todos = JSON.parse(todo));
