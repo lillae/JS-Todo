@@ -148,21 +148,19 @@ body {
 }
 
 .todo .todo-content .task .checkbox i.fas.fa-check-circle {
-  opacity: 0;
   color: var(--pink);
 }
 
-.todo .todo-content .task .checkbox .done {
-  opacity: 1;
-}
-
-.todo .todo-content .task .checkbox span {
+.todo .todo-content .task .checkbox .task-text {
   color: #71789c;
   font-size: 1rem;
   margin-left: 25px;
 }
 
-.todo .todo-content .task .checkbox span .completed {
+.todo .todo-content .task .checkbox .completed {
+  color: #71789c;
+  font-size: 1rem;
+  margin-left: 25px;
   text-decoration: line-through;
 }
 
