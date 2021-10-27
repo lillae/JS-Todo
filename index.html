@@ -36,17 +36,18 @@
             <div class="modal-header">
                 <span class="close">&times;</span>
             </div>
+
             <div class="modal-body">
-                <h2>Create Task</h2>
-                <form type=submit>
-                    <input type="text" class="modal-input" required>
-                </form>
+                <div class="start-time">
+                    <h3>Start time: <input type="time" id="appt" name="appt" min="09:00" max="18:00"></h3>
+                </div>
             </div>
             <div class="modal-footer">
-                <div class="start-time">
-                    <h3>Start time: <input type="time" id="appt" name="appt" min="09:00" max="18:00" required></h3>
-                </div>
-                <button type="submit" class="addTaskBtn">Add Task</button>
+                <h3>Create Todo:</h3>
+                <form type=submit>
+                    <input type="text" class="modal-input">
+                    <button type="submit" class="addTaskBtn">Add</button>
+                </form>
             </div>
         </div>
     </div>
