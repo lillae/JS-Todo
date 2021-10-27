@@ -37,6 +37,7 @@ $purple2: rebeccapurple;
   --plus: #{$pink};
   --btnColor: white;
   --pink: #{$pink};
+  --footer-input: #{$blueGrey};
 }
 
 .dark {
@@ -58,6 +59,7 @@ $purple2: rebeccapurple;
   --hoverColor: #ff3fa7;
   --btnColor: deeppink;
   --pink: deeppink;
+  --footer-input: white;
 }
 
 @mixin mobile {
@@ -298,8 +300,7 @@ body {
       background: transparent;
       font-family: 'Roboto', sans-serif;
       font-size: 1.1rem;
-      font-weight: bold;
-      color: white;
+      color: var(--footer-input);
       width: 70%;
       &:focus {
         outline: none;
