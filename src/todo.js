@@ -14,6 +14,21 @@ let todos = [];
 //* EVENT LISTENERS */
 document.addEventListener('DOMContentLoaded', init);
 addTaskBtn.addEventListener('click', addTodo);
+todoContent.addEventListener('click', (e) => {
+  getStorage();
+  const checkbox = e.target.previousElementSibling.nextElementSibling;
+
+  if (checkbox.checked) {
+    const newCheckbox = todos.find((todo) => todo.id === checkbox.id);
+    if (newCheckbox.completed) {
+      newCheckbox.completed = false;
+    } else {
+      newCheckbox.completed = true;
+    }
+  }
+  setStorage();
+  renderTodo();
+});
 
 //* FUNCTIONS */
 function updateTaskTime() {
@@ -90,22 +105,6 @@ function renderTodo() {
 
   todoContent.innerHTML = html;
 }
-
-todoContent.addEventListener('click', (e) => {
-  getStorage();
-  const checkbox = e.target.previousElementSibling.nextElementSibling;
-
-  if (checkbox.checked) {
-    const newCheckbox = todos.find((todo) => todo.id === checkbox.id);
-    if (newCheckbox.completed) {
-      newCheckbox.completed = false;
-    } else {
-      newCheckbox.completed = true;
-    }
-  }
-  setStorage();
-  renderTodo();
-});
 
 function getStorage() {
   let todo = localStorage.getItem('Todos');
