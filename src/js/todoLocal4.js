@@ -7,6 +7,7 @@ const closeBtn = document.querySelector('.close');
 const addTaskBtn = document.querySelector('.addTaskBtn');
 const timeInput = document.querySelector('#appt');
 const todoContent = document.querySelector('.todo-content');
+
 let pending = document.querySelector('.pending');
 let modalInput = document.querySelector('.modal-input');
 let todos = [];
@@ -57,9 +58,10 @@ function renderTodo() {
 
   let circle;
   todos.forEach((item, index) => {
-    if (item.completed === true) {
+    if (item.completed) {
       circle = `<i class="fas fa-check-circle circleFull checked"></i>`;
-    } else {
+    }
+    if (!item.completed) {
       circle = `<i class="far fa-circle circle" ></i>`;
     }
 
