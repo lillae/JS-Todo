@@ -5,12 +5,10 @@ const addBtn = document.querySelector('.add');
 const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.close');
 const addTaskBtn = document.querySelector('.addTaskBtn');
-const todoHeader = document.querySelector('.todo-header');
+const timeInput = document.querySelector('#appt');
 const todoContent = document.querySelector('.todo-content');
-const timeInput = document.getElementById('appt');
 let pending = document.querySelector('.pending');
 let modalInput = document.querySelector('.modal-input');
-let time;
 let todos = [];
 
 //* EVENT LISTENERS */
@@ -19,81 +17,111 @@ addTaskBtn.addEventListener('click', addTodo);
 
 //* FUNCTIONS */
 function updateTaskTime() {
-  let addedTime = timeInput.value;
-  return addedTime;
+  return timeInput.value;
+}
+
+function makeId() {
+  return Math.random().toString(36).substr(2, 9);
 }
 
 function addTodo() {
   const modalInputValue = modalInput.value;
 
-  if (modalInputValue.trim() !== 0) {
-    let todo = localStorage.getItem('Todos');
-
-    if (todo === null) {
-      todos = [];
-    } else {
-      todos = JSON.parse(todo);
-    }
+  if (modalInput.value !== '' && timeInput.value !== '') {
+    getStorage();
 
     todos.push({
       todo: modalInputValue,
       completed: false,
       time: updateTaskTime(),
+      id: makeId(),
     });
 
-    console.log(todos);
-    localStorage.setItem('Todos', JSON.stringify(todos));
+    setStorage();
     modalInput.value = '';
   }
   renderTodo();
 }
 
 function deleteTodo(index) {
-  let todo = localStorage.getItem('Todos');
-  let todos = JSON.parse(todo);
+  getStorage();
   todos.splice(index, 1);
-  localStorage.setItem('Todos', JSON.stringify(todos));
+  setStorage();
   renderTodo();
 }
 
 function renderTodo() {
-  let todo = localStorage.getItem('Todos');
-
-  if (todo === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(todo);
-  }
+  getStorage();
 
   let html = '';
-  let todoContent = document.querySelector('.todo-content');
 
+  let circle;
   todos.forEach((item, index) => {
+    if (item.completed === true) {
+      circle = `<i class="fas fa-check-circle circleFull checked"></i>`;
+    } else {
+      circle = `<i class="far fa-circle circle" ></i>`;
+    }
+
     html += `
     <div class="task" id=${index}>
     <label class="checkbox" for="toggle">
-        <i class="far fa-circle circle" ></i>
-        <i class="fas fa-check-circle circleFull checked${
-          item.completed ? ' done' : ''
-        }"></i>
-        <input type="checkbox" id=${index}">
-        <span class="task-text ${item.completed ? 'completed' : ''}">${
+        ${circle} 
+        <input type="checkbox" id=${item.id} class='checkbox-input'>
+        <span class='${item.completed ? 'completed' : 'task-text'}'task-text">${
       item.todo
     }</span>
     </label>
     <div>
         <span>${item.time}</span>
-        <i class="far fa-trash-alt trash" onClick='deleteTodo(${index})'></i>
+        <i class="far fa-trash-alt trash" id=${index} onClick='deleteTodo(${index})'></i>
     </div>
 </div>
 `;
-
-    if (todos !== null) {
-      pending.innerText = `${todos.length} pending tasks`;
-    }
-
-    todoContent.innerHTML = html;
   });
+
+  if (todos !== null) {
+    if (todos.length >= 1) {
+      pending.innerText = `${todos.length} pending task`;
+    } else {
+      pending.innerText = 'No pending task';
+    }
+  }
+
+  todoContent.innerHTML = html;
+}
+
+todoContent.addEventListener('click', (e) => {
+  getStorage();
+  const checkbox = e.target.previousElementSibling.nextElementSibling;
+
+  if (checkbox.checked) {
+    const newCheckbox = todos.find((todo) => todo.id === checkbox.id);
+    if (newCheckbox.completed) {
+      newCheckbox.completed = false;
+    } else {
+      newCheckbox.completed = true;
+    }
+  }
+  setStorage();
+  renderTodo();
+});
+
+function checkboxHandler(item) {
+  getStorage();
+
+  item.checked ? todos[item].completed : (todos[item].completed = false);
+  setStorage();
+  renderTodo();
+}
+
+function getStorage() {
+  let todo = localStorage.getItem('Todos');
+  return todo === null ? (todos = []) : (todos = JSON.parse(todo));
+}
+
+function setStorage() {
+  localStorage.setItem('Todos', JSON.stringify(todos));
 }
 
 const getCurrentMonth = () => {
@@ -102,14 +130,18 @@ const getCurrentMonth = () => {
   const day = date.toLocaleString('default', { weekday: 'long' });
   let dayNr = date.getDate();
 
-  if (dayNr >= 4) {
-    dayNr += 'th';
-  } else if (dayNr === 1) {
-    dayNr += 'st';
-  } else if (dayNr === 2) {
-    dayNr += 'nd';
-  } else if (dayNr === 3) {
-    dayNr += 'rd';
+  switch (dayNr) {
+    case dayNr === 1:
+      dayNr += 'st';
+      break;
+    case dayNr === 2:
+      dayNr += 'nd';
+      break;
+    case dayNr === 3:
+      dayNr += 'rd';
+      break;
+    default:
+      dayNr += 'th';
   }
 
   let output = `
@@ -136,7 +168,7 @@ const modalHandler = () => {
 };
 
 function init() {
+  renderTodo();
   getCurrentMonth();
   modalHandler();
-  renderTodo();
 }
