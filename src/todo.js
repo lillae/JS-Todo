@@ -1,34 +1,10 @@
 'use strict';
 
-const dateBox = document.querySelector('.date');
-const addBtn = document.querySelector('.add');
-const modal = document.querySelector('.modal');
-const closeBtn = document.querySelector('.close');
-const addTaskBtn = document.querySelector('.addTaskBtn');
 const timeInput = document.querySelector('#appt');
 const todoContent = document.querySelector('.todo-content');
-let pending = document.querySelector('.pending');
-let modalInput = document.querySelector('.modal-input');
-let todos = [];
 
 //* EVENT LISTENERS */
 document.addEventListener('DOMContentLoaded', init);
-addTaskBtn.addEventListener('click', addTodo);
-todoContent.addEventListener('click', (e) => {
-  getStorage();
-  const checkbox = e.target.previousElementSibling.nextElementSibling;
-
-  if (checkbox.checked) {
-    const newCheckbox = todos.find((todo) => todo.id === checkbox.id);
-    if (newCheckbox.completed) {
-      newCheckbox.completed = false;
-    } else {
-      newCheckbox.completed = true;
-    }
-  }
-  setStorage();
-  renderTodo();
-});
 
 //* FUNCTIONS */
 function updateTaskTime() {
@@ -40,10 +16,11 @@ function makeId() {
 }
 
 function addTodo() {
+  const modalInput = document.querySelector('.modal-input');
   const modalInputValue = modalInput.value;
 
   if (modalInput.value !== '' && timeInput.value !== '') {
-    getStorage();
+    let todos = getStorage();
 
     todos.push({
       todo: modalInputValue,
@@ -52,66 +29,55 @@ function addTodo() {
       id: makeId(),
     });
 
-    setStorage();
+    setStorage(todos);
     modalInput.value = '';
   }
   renderTodo();
 }
 
 function deleteTodo(index) {
-  getStorage();
+  let todos = getStorage();
+
   todos.splice(index, 1);
-  setStorage();
+  setStorage(todos);
   renderTodo();
 }
 
 function renderTodo() {
-  getStorage();
-
+  let todos = getStorage();
   let html = '';
-
   let circle;
+
   todos.forEach((item, index) => {
-    if (item.completed === true) {
-      circle = `<i class="fas fa-check-circle circleFull checked"></i>`;
-    } else {
-      circle = `<i class="far fa-circle circle" ></i>`;
-    }
+    circle = item.completed
+        ? `<i class="fas fa-check-circle circleFull checked"></i>`
+        : `<i class="far fa-circle circle" ></i>`;
 
     html += `
-    <div class="task" id=${index}>
-    <label class="checkbox" for="toggle">
-        ${circle} 
-        <input type="checkbox" id=${item.id} class='checkbox-input'>
-        <span class='${item.completed ? 'completed' : 'task-text'}'task-text">${
-      item.todo
-    }</span>
-    </label>
-    <div>
-        <span>${item.time}</span>
-        <i class="far fa-trash-alt trash" id=${index} onClick='deleteTodo(${index})'></i>
-    </div>
-</div>
-`;
+      <div class="task" id=${index}>
+        <label class="checkbox" for="toggle">
+            ${circle} 
+            <input type="checkbox" id=${item.id} class='checkbox-input'>
+            <span class='${item.completed ? 'completed' : 'task-text'}'>${item.todo}</span>
+        </label>
+        <div>
+            <span>${item.time}</span>
+            <i class="far fa-trash-alt trash" id=${index} onClick='deleteTodo(${index})'></i>
+        </div>
+    </div>`;
   });
 
-  if (todos !== null) {
-    if (todos.length >= 1) {
-      pending.innerText = `${todos.length} pending task`;
-    } else {
-      pending.innerText = 'No pending task';
-    }
-  }
+  document.querySelector('.pending').innerText = todos.length >= 1 ? `${todos.length} pending task` : 'No pending task';
 
   todoContent.innerHTML = html;
 }
 
 function getStorage() {
   let todo = localStorage.getItem('Todos');
-  return todo === null ? (todos = []) : (todos = JSON.parse(todo));
+  return todo === null ? [] : JSON.parse(todo);
 }
 
-function setStorage() {
+function setStorage(todos) {
   localStorage.setItem('Todos', JSON.stringify(todos));
 }
 
@@ -136,18 +102,21 @@ const getCurrentMonth = () => {
   }
 
   let output = `
-  <h2>${day}, ${dayNr}</h2>
-  <h3>${month}</h3>
+    <h2>${day}, ${dayNr}</h2>
+    <h3>${month}</h3>
   `;
-  dateBox.insertAdjacentHTML('afterbegin', output);
+
+  document.querySelector('.date').insertAdjacentHTML('afterbegin', output);
 };
 
 const modalHandler = () => {
-  addBtn.addEventListener('click', () => {
+  const modal = document.querySelector('.modal');
+
+  document.querySelector('.add').addEventListener('click', () => {
     modal.style.display = 'block';
   });
 
-  closeBtn.addEventListener('click', () => {
+  document.querySelector('.close').addEventListener('click', () => {
     modal.style.display = 'none';
   });
 
@@ -159,6 +128,20 @@ const modalHandler = () => {
 };
 
 function init() {
+  document.querySelector('.addTaskBtn').addEventListener('click', addTodo);
+
+  todoContent.addEventListener('click', e => {
+    let todos = getStorage();
+    const checkbox = e.target.previousElementSibling.nextElementSibling;
+
+    if (checkbox.checked) {
+      const newCheckbox = todos.find((todo) => todo.id === checkbox.id);
+      newCheckbox.completed = !newCheckbox.completed
+    }
+    setStorage(todos);
+    renderTodo();
+  });
+
   renderTodo();
   getCurrentMonth();
   modalHandler();
