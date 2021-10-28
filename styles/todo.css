@@ -1,27 +1,32 @@
 :root {
-  --bg: #3f51b5;
-  --header: #e9eaf4;
+  --bg: linear-gradient(to right, #ff4e50, #f9d423);
+  --header: #fbffe1;
   --border: #f7f7fa;
   --taskbody: white;
   --shadow: #f9c5d7;
   --modal: white;
-  --btn: #e91e63;
+  --btn: #fe524e;
   --btnBorder: transparent;
-  --hoverBorder: #e91e63;
-  --hoverColor: #e91e63;
-  --ft: #3f51b5;
-  --focus: #9ca1ba;
-  --taskFt: #71789c;
-  --taskFt2: #71789c;
+  --hoverBorder: #fe524e;
+  --hoverColor: #fe524e;
+  --ft: #ff574d;
+  --focus: #fe524e;
+  --taskFt: #fe524e;
+  --taskFt2: #fe524e;
   --modalInput: #71789c;
-  --plus: #e91e63;
+  --plus: #fe524e;
   --btnColor: white;
-  --pink: #e91e63;
+  --pink: #fe524e;
   --footer-input: #71789c;
 }
 
 .dark {
-  --bg: #11121d;
+  --bg: linear-gradient(
+    90deg,
+    rgba(16, 18, 28, 1) 0%,
+    rgba(51, 52, 75, 1) 47%,
+    rgba(18, 20, 29, 1) 100%
+  );
   --header: #25283a;
   --border: #25283a;
   --taskbody: #141622;
@@ -101,13 +106,13 @@ body {
 }
 
 .todo .todo-header h3 {
-  color: #a4aaca;
+  color: #a5a5a5;
   font-size: 1rem;
   font-weight: 400;
 }
 
 .todo .todo-header span {
-  color: #a4aaca;
+  color: #a5a5a5;
   font-size: 0.9rem;
 }
 
@@ -146,7 +151,7 @@ body {
 }
 
 .todo .todo-content .task .checkbox i.far.fa-circle {
-  color: #e9eaf480;
+  color: #e9edd0;
 }
 
 .todo .todo-content .task .checkbox i.fas.fa-check-circle {
@@ -154,26 +159,26 @@ body {
 }
 
 .todo .todo-content .task .checkbox .task-text {
-  color: #71789c;
+  color: #8b8b8b;
   font-size: 1rem;
   margin-left: 25px;
 }
 
 .todo .todo-content .task .checkbox .completed {
-  color: #71789c;
+  color: #8b8b8b;
   font-size: 1rem;
   margin-left: 25px;
   text-decoration: line-through;
 }
 
 .todo .todo-content .task span {
-  color: #a6aac2;
+  color: #ababab;
   font-size: 0.9rem;
   margin-right: 15px;
 }
 
 .todo .todo-content .task .far.fa-trash-alt {
-  color: #a6aac2;
+  color: #ababab;
   cursor: pointer;
 }
 
