@@ -1,6 +1,6 @@
 :root {
   --bg: linear-gradient(to right, #ff4e50, #f9d423);
-  --header: #fbffe1;
+  --header: #f4f5f1;
   --border: #f7f7fa;
   --taskbody: white;
   --shadow: #f9c5d7;
@@ -151,7 +151,7 @@ body {
 }
 
 .todo .todo-content .task .checkbox i.far.fa-circle {
-  color: #e9edd0;
+  color: #f4f5f1;
 }
 
 .todo .todo-content .task .checkbox i.fas.fa-check-circle {

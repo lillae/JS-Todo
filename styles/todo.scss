@@ -20,7 +20,7 @@ $purple2: rebeccapurple;
 
 :root {
   --bg: #{$blue};
-  --header: #fbffe1;
+  --header: #f4f5f1;
   --border: #{$border};
   --taskbody: #{$task};
   --shadow: #{$shadow};
@@ -171,7 +171,7 @@ body {
           pointer-events: none;
         }
         i.far.fa-circle {
-          color: #e9edd0;
+          color: #f4f5f1;
         }
         i.fas.fa-check-circle {
           color: var(--pink);
