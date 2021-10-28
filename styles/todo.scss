@@ -18,7 +18,7 @@ $darkShadow: #411422;
 $purple1: #271b32;
 $purple2: rebeccapurple;
 
-:root {
+.light {
   --bg: #{$blue};
   --header: #f4f5f1;
   --border: #{$border};
@@ -33,11 +33,11 @@ $purple2: rebeccapurple;
   --focus: #fe524e;
   --taskFt: #fe524e;
   --taskFt2: #fe524e;
-  --modalInput: #{$blueGrey};
+  --modalInput: #8b8b8b;
   --plus: #fe524e;
   --btnColor: white;
   --pink: #fe524e;
-  --footer-input: #{$blueGrey};
+  --footer-input: #8b8b8b;
 }
 
 .dark {

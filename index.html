@@ -15,7 +15,13 @@
     <title>Todo App</title>
 </head>
 
-<body>
+<body class="light">
+    <script>
+        const preference = localStorage.getItem('dark');
+        if (preference) {
+            document.documentElement.setAttribute('data-theme', preference)
+        }
+    </script>
 
     <i class="fas fa-moon" id="dark-toggle"></i>
     <div class="todo">

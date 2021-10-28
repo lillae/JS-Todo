@@ -13,6 +13,7 @@ darkToggle.addEventListener('click', () => {
   } else {
     darkMode();
     setDarkMode = localStorage.setItem('dark', null);
+    document.documentElement.classList.add('light');
   }
 });
 
