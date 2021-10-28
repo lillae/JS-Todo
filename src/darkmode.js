@@ -13,11 +13,16 @@ darkToggle.addEventListener('click', () => {
   } else {
     darkMode();
     setDarkMode = localStorage.setItem('dark', null);
-    document.documentElement.classList.add('light');
+    bodyEl.classList.add('light');
   }
 });
 
 let setDarkMode = localStorage.getItem('dark');
 if (setDarkMode === 'on') {
   darkMode();
+}
+
+const preference = localStorage.getItem('dark');
+if (preference) {
+  document.documentElement.setAttribute('data-theme', preference);
 }
