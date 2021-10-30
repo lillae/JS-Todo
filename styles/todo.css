@@ -1,5 +1,5 @@
 .light {
-  --bg: linear-gradient(to right, #ff4e50, #f9d423);
+  --bg: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   --header: #f4f5f1;
   --border: #f7f7fa;
   --taskbody: white;
